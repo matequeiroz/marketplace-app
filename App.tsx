@@ -1,10 +1,8 @@
-import { SafeAreaView, StyleSheet, Text } from 'react-native';
-import { SearchIcon } from '@hugeicons/core-free-icons';
-import { HugeiconsIcon } from '@hugeicons/react-native';
+import { SafeAreaView, StyleSheet } from 'react-native';
 import Bootsplash from 'react-native-bootsplash';
 
-import { fonts, typography } from '@/theme';
 import { useEffect } from 'react';
+import { Routes } from '@/routes';
 
 function App() {
 
@@ -14,23 +12,7 @@ function App() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={{ fontFamily: fonts.bold, fontSize: typography.bold.lg }}>
-        Marketplace App
-      </Text>
-      <Text
-        style={{
-          fontFamily: fonts.medium,
-          fontSize: typography.medium.label.md,
-        }}
-      >
-        Seu app de compras
-      </Text>
-      <HugeiconsIcon
-        icon={SearchIcon}
-        size={24}
-        color="black"
-        strokeWidth={1.5}
-      />
+      <Routes />
     </SafeAreaView>
   );
 }

@@ -1,5 +1,5 @@
 export const colors = {
-  orage: {
+  orange: {
     400: "#F24D0D",
     700: "#C43C08"
   },

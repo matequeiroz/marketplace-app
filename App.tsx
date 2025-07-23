@@ -1,21 +1,13 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
-import { NewAppScreen } from '@react-native/new-app-screen';
-import { StatusBar, StyleSheet, useColorScheme, View } from 'react-native';
+import { SafeAreaView, StyleSheet, Text } from 'react-native';
+import { fonts } from './src/theme/fonts';
+import { typography } from './src/theme/typography';
 
 function App() {
-  const isDarkMode = useColorScheme() === 'dark';
-
   return (
-    <View style={styles.container}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <NewAppScreen templateFileName="App.tsx" />
-    </View>
+    <SafeAreaView style={styles.container}>
+        <Text style={{ fontFamily: fonts.bold, fontSize: typography.bold.lg }}>Marketplace App</Text>
+        <Text style={{ fontFamily: fonts.medium, fontSize: typography.medium.label.md }}>Seu app de compras</Text>
+    </SafeAreaView>
   );
 }
 

@@ -10,9 +10,12 @@
     "test": "jest"
   },
   "dependencies": {
+    "@hugeicons/core-free-icons": "1.0.16",
+    "@hugeicons/react-native": "1.0.7",
     "@react-native/new-app-screen": "0.80.1",
     "react": "19.1.0",
-    "react-native": "0.80.1"
+    "react-native": "0.80.1",
+    "react-native-svg": "15.12.0"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",

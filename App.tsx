@@ -1,6 +1,6 @@
 import { SafeAreaView, StyleSheet, Text } from 'react-native';
-import { fonts } from './src/theme/fonts';
-import { typography } from './src/theme/typography';
+
+import { fonts, typography } from '@/theme';
 
 function App() {
   return (

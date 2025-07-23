@@ -1,10 +1,17 @@
 import { SafeAreaView, StyleSheet, Text } from 'react-native';
 import { SearchIcon } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react-native';
+import Bootsplash from 'react-native-bootsplash';
 
 import { fonts, typography } from '@/theme';
+import { useEffect } from 'react';
 
 function App() {
+
+  useEffect(() => {
+    Bootsplash.hide({ fade: true })
+  }, [])
+
   return (
     <SafeAreaView style={styles.container}>
       <Text style={{ fontFamily: fonts.bold, fontSize: typography.bold.lg }}>

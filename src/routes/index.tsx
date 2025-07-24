@@ -2,12 +2,13 @@ import { StatusBar } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 
 import { PrivateRoutesComponent } from "@/routes/PrivateRoutes";
+import { PublicRoutesComponent } from "./PublicRoutes";
 
 export const Routes = () => {
   return (
     <NavigationContainer>
       <StatusBar barStyle={"dark-content"} />
-      <PrivateRoutesComponent />
+      <PublicRoutesComponent />
     </NavigationContainer>
   );
 }

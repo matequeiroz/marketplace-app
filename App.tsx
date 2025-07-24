@@ -1,7 +1,7 @@
+import { useEffect } from 'react';
 import { SafeAreaView, StyleSheet } from 'react-native';
 import Bootsplash from 'react-native-bootsplash';
 
-import { useEffect } from 'react';
 import { Routes } from '@/routes';
 
 function App() {

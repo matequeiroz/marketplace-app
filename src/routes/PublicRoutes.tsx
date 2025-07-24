@@ -7,6 +7,7 @@ export const PublicRoutes = createNativeStackNavigator<PublicRoutesParamList>();
 
 const PublicRoutesNavigator = () => (
   <PublicRoutes.Navigator
+    initialRouteName='Login'
     screenOptions={{
       headerShown: false,
     }}
@@ -17,6 +18,6 @@ const PublicRoutesNavigator = () => (
 );
 
 export const PublicRoutesComponent = () => (
-  <PublicRoutesNavigator />
+    <PublicRoutesNavigator />
 );
 

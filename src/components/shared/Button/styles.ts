@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-import { colors, typography } from '@/theme';
+import { colors, fonts, typography } from '@/theme';
 
 const borderColor = colors.orange[400];
 
@@ -19,8 +19,11 @@ export const styles = StyleSheet.create({
     borderStyle: 'solid',
     borderColor: borderColor,
     borderWidth: 1,
+    
   },
   text: {
+    fontFamily: fonts.medium,
     fontSize: typography.medium.action.md,
+    fontWeight: 100
   }
 });

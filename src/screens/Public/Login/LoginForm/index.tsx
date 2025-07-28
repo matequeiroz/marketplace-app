@@ -1,0 +1,60 @@
+import React from 'react';
+import { View } from 'react-native';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Mail01Icon, LockKeyIcon, ArrowRight02Icon } from '@hugeicons/core-free-icons';
+
+import { Button } from '@/components/shared/Button';
+import { FormInput } from '@/components/shared/InputForm';
+
+import { styles } from './styles';
+
+const loginSchema = z.object({
+  email: z.email('E-mail inválido').min(1, 'O e-mail é obrigatório'),
+  password: z.string().min(6, 'A senha deve ter pelo menos 6 caracteres'),
+});
+
+type LoginFormData = z.infer<typeof loginSchema>;
+
+type LoginFormType =  {
+  onSubmit?: (data: LoginFormData) => void;
+}
+
+export function LoginForm() {
+  const { control, handleSubmit } = useForm<LoginFormData>({
+    resolver: zodResolver(loginSchema),
+  });
+
+  const onSubmit = (data: LoginFormData) => {
+    console.log(data);
+  };
+
+  return (
+    <View>
+      <View style={styles.inputContainer}>
+        <FormInput
+          name="email"
+          label="E-mail"
+          control={control}
+          icon={Mail01Icon}
+          placeholder="email@exemplo.com"
+          keyboardType="email-address"
+          autoCapitalize="none"
+        />
+
+        <FormInput
+          name="password"
+          label="Senha"
+          control={control}
+          icon={LockKeyIcon}
+          placeholder="Sua senha"
+          secureTextEntry={true}
+          autoCapitalize="none"
+        />
+      </View>
+      <Button text="Acessar" icon={ArrowRight02Icon} type="primary" />
+    </View>
+  );
+}
+

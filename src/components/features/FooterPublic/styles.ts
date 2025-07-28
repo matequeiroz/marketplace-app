@@ -15,6 +15,7 @@ export const styles = StyleSheet.create({
   textFooter: {
     color: colors.gray[500],
     fontFamily: fonts.regular,
-    fontSize: typography.regular.xs
+    fontSize: typography.regular.xs,
+    textAlign: "center",
   }
 })

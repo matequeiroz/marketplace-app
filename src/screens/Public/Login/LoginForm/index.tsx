@@ -12,28 +12,36 @@ import { Button } from '@/components/shared/Button';
 import { FormInput } from '@/components/shared/InputForm';
 import { loginSchema } from '@/schemas/login.schema';
 import { LoginFormType } from '@/types/loginForm';
+import { useAuthContext } from '@/hooks/useAuthContext';
 
 import { styles } from './styles';
 
 export function LoginForm() {
+  const { handleUserAutenticate } = useAuthContext()
+
   const {
     control,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { isSubmitting },
   } = useForm<LoginFormType>({
     resolver: zodResolver(loginSchema),
     mode: "onTouched"
   });
 
-  const onSubmit = async (data: LoginFormType) => {
-    console.log(data, errors, isSubmitting);
+
+  const onSubmit = async ({ identifier, password }: LoginFormType) => {
+    try {
+      await handleUserAutenticate({ identifier, password })
+    } catch (error) {
+      
+    }
   };
 
   return (
     <View style={styles.container}>
       <View style={styles.inputContainer}>
         <FormInput
-          name="email"
+          name="identifier"
           label="E-mail"
           control={control}
           icon={Mail01Icon}

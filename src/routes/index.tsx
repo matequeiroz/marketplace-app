@@ -3,12 +3,16 @@ import { NavigationContainer } from "@react-navigation/native";
 
 import { PrivateRoutesComponent } from "@/routes/PrivateRoutes";
 import { PublicRoutesComponent } from "./PublicRoutes";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 export const Routes = () => {
+
+  const { user, token } = useAuthContext()
+
   return (
     <NavigationContainer>
       <StatusBar barStyle={"dark-content"} />
-      <PublicRoutesComponent />
+     {!user || !token ? <PublicRoutesComponent /> : <PrivateRoutesComponent />}
     </NavigationContainer>
   );
 }

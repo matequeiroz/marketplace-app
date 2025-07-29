@@ -1,6 +1,5 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
   UserIcon,
@@ -13,29 +12,19 @@ import { View } from 'react-native';
 
 import { Button } from '@/components/shared/Button';
 import { FormInput } from '@/components/shared/InputForm';
+import { RegisterFormType } from '@/types/registerForm';
+import { registerSchema } from '@/schemas/register.schema';
 
 import { styles } from './styles';
 
-const registerSchema = z.object({
-  name: z.string("Digite nome e sobrenome").min(5, 'O nome é obrigatório'),
-  phone: z.string("O telefone é obrigatório").min(11, 'Telefone inválido'),
-  email: z.email('E-mail inválido').min(1, 'O e-mail é obrigatório'),
-  password: z.string("A senha é obrigatória").min(6, 'A senha deve ter pelo menos 6 caracteres'),
-  confirmPassword: z.string("A senha é obrigatória").min(6, 'A senha deve ter pelo menos 6 caracteres'),
-}).refine((data) => data.password === data.confirmPassword, {
-  message: 'As senhas não conferem',
-  path: ['confirmPassword'],
-});
-
-type RegisterFormData = z.infer<typeof registerSchema>;
 
 export const RegisterForm = () => {
-  const { control, handleSubmit } = useForm<RegisterFormData>({
+  const { control, handleSubmit } = useForm<RegisterFormType>({
     resolver: zodResolver(registerSchema),
     mode: "onTouched"
   });
 
-  const onSubmit = (data: RegisterFormData) => {
+  const onSubmit = (data: RegisterFormType) => {
     console.log(data);
   };
 

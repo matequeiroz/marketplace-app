@@ -1,28 +1,31 @@
 import React from 'react';
 import { View } from 'react-native';
 import { useForm } from 'react-hook-form';
-import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Mail01Icon, LockKeyIcon, ArrowRight02Icon } from '@hugeicons/core-free-icons';
+import {
+  Mail01Icon,
+  LockKeyIcon,
+  ArrowRight02Icon,
+} from '@hugeicons/core-free-icons';
 
 import { Button } from '@/components/shared/Button';
 import { FormInput } from '@/components/shared/InputForm';
+import { loginSchema } from '@/schemas/login.schema';
+import { LoginFormType } from '@/types/loginForm';
 
 import { styles } from './styles';
 
-const loginSchema = z.object({
-  email: z.email('O e-mail é inválido').min(1, 'O e-mail é obrigatório'),
-  password: z.string("A senha é obrigatória").min(6, 'A senha deve ter pelo menos 6 caracteres'),
-});
-
-type LoginFormData = z.infer<typeof loginSchema>;
-
 export function LoginForm() {
-  const { control, handleSubmit, formState: { errors, isSubmitting } } = useForm<LoginFormData>({
+  const {
+    control,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<LoginFormType>({
     resolver: zodResolver(loginSchema),
+    mode: "onTouched"
   });
 
-  const onSubmit = async (data: LoginFormData) => {
+  const onSubmit = async (data: LoginFormType) => {
     console.log(data, errors, isSubmitting);
   };
 
@@ -49,8 +52,12 @@ export function LoginForm() {
           autoCapitalize="none"
         />
       </View>
-      <Button text="Acessar" icon={ArrowRight02Icon} type="primary" onPress={handleSubmit(onSubmit)} />
+      <Button
+        text="Acessar"
+        icon={ArrowRight02Icon}
+        type="primary"
+        onPress={handleSubmit(onSubmit)}
+      />
     </View>
   );
 }
-

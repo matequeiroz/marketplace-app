@@ -2,7 +2,9 @@ import { StyleSheet } from "react-native";
 import { colors, fonts, typography } from "@/theme";
 
 export const styles = StyleSheet.create({
-  container: {},
+  container: {
+    marginTop: 60,
+  },
   content: {
     marginBottom: 24,
     gap: 24

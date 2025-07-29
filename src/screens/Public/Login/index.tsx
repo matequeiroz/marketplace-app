@@ -2,22 +2,12 @@ import { View } from 'react-native';
 
 import { HeaderPublic } from '@/components/features/HeaderPublic';
 import { FooterPublic } from '@/components/features/FooterPublic';
+import { KeyboardDismissScrollView } from '@/components/shared/KeyboardDismissScrollView';
 import { LoginForm } from '@/screens/Public/Login/LoginForm';
-import { colors } from '@/theme';
 
 export const LoginScreen = () => {
   return (
-    <View
-      style={{
-        backgroundColor: colors.white,
-        height: '100%',
-        paddingTop: 64,
-        paddingLeft: 40,
-        paddingRight: 40,
-        paddingBottom: 46,
-        justifyContent: 'space-between',
-      }}
-    >
+    <KeyboardDismissScrollView>
       <HeaderPublic
         title="Acesse sua conta"
         subtitle="Informe seu e-mail e senha para entrar"
@@ -25,7 +15,11 @@ export const LoginScreen = () => {
       <View>
         <LoginForm />
       </View>
-      <FooterPublic />
-    </View>
+      <FooterPublic
+        buttonText="Criar conta"
+        navigation="Register"
+        title="Ainda não tem uma conta?"
+      />
+    </KeyboardDismissScrollView>
   );
 };

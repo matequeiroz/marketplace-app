@@ -11,27 +11,23 @@ import { FormInput } from '@/components/shared/InputForm';
 import { styles } from './styles';
 
 const loginSchema = z.object({
-  email: z.email('E-mail inválido').min(1, 'O e-mail é obrigatório'),
-  password: z.string().min(6, 'A senha deve ter pelo menos 6 caracteres'),
+  email: z.email('O e-mail é inválido').min(1, 'O e-mail é obrigatório'),
+  password: z.string("A senha é obrigatória").min(6, 'A senha deve ter pelo menos 6 caracteres'),
 });
 
 type LoginFormData = z.infer<typeof loginSchema>;
 
-type LoginFormType =  {
-  onSubmit?: (data: LoginFormData) => void;
-}
-
 export function LoginForm() {
-  const { control, handleSubmit } = useForm<LoginFormData>({
+  const { control, handleSubmit, formState: { errors, isSubmitting } } = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
   });
 
-  const onSubmit = (data: LoginFormData) => {
-    console.log(data);
+  const onSubmit = async (data: LoginFormData) => {
+    console.log(data, errors, isSubmitting);
   };
 
   return (
-    <View>
+    <View style={styles.container}>
       <View style={styles.inputContainer}>
         <FormInput
           name="email"
@@ -53,7 +49,7 @@ export function LoginForm() {
           autoCapitalize="none"
         />
       </View>
-      <Button text="Acessar" icon={ArrowRight02Icon} type="primary" />
+      <Button text="Acessar" icon={ArrowRight02Icon} type="primary" onPress={handleSubmit(onSubmit)} />
     </View>
   );
 }

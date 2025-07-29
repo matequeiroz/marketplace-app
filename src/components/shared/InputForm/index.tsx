@@ -2,7 +2,11 @@ import React, { useRef, useState } from 'react';
 import { View, TextInput, Text, TouchableOpacity } from 'react-native';
 import { Controller } from 'react-hook-form';
 import { HugeiconsIcon } from '@hugeicons/react-native';
-import { ViewOffSlashIcon, ViewIcon } from '@hugeicons/core-free-icons';
+import {
+  ViewOffSlashIcon,
+  ViewIcon,
+  AlertCircleIcon,
+} from '@hugeicons/core-free-icons';
 
 import { styles } from './styles';
 import { FormInputType } from './types';
@@ -33,55 +37,101 @@ export function FormInput({
       name={name}
       render={({
         field: { onChange, onBlur, value },
-        fieldState: { error },
-      }) => (
-        <View style={styles.container}>
-          <View>
-            <View>
-              <Text style={[styles.label, isFocused && styles.labelFocused]}>
-                {String(label).toLocaleUpperCase()}
-              </Text>
-            </View>
-            <View style={styles.inputContainer}>
-              {Icon && (
-                <HugeiconsIcon
-                  icon={Icon}
-                  width={20}
-                  height={20}
-                  color={isFocused ? colors.orange[400] : colors.gray[400]}
-                />
+        fieldState: { error, invalid, isDirty },
+      }) => {
+        // Função para definir a cor do ícone
+        const getColorFeedback = () => {
+          if (isFocused && !error && isDirty && !invalid && value)
+            return colors.semantic.success;
+          if (!isFocused && !error && isDirty && !invalid && value)
+            return colors.semantic.success;
+
+          if (isFocused && error) return colors.semantic.danger;
+          if (!isFocused && error) return colors.semantic.danger;
+
+          if (isFocused && !value) return colors.orange[400];
+
+          if (!isFocused && !isDirty && !value) return colors.gray[400];
+
+          return colors.gray[400];
+        };
+
+        const isSuccess = !error && isDirty && !invalid && value;
+        const isError = error;
+
+        return (
+          <View style={styles.wrapper}>
+            <View style={styles.container}>
+              <View>
+                <View>
+                  <Text
+                    style={[
+                      styles.label,
+                      isFocused && !error && styles.labelFocused,
+                      isFocused && !error && isSuccess && styles.labelSuccess,
+                      error && styles.labelError,
+                    ]}
+                  >
+                    {String(label).toLocaleUpperCase()}
+                  </Text>
+                </View>
+                <View style={styles.inputContainer}>
+                  {Icon && (
+                    <HugeiconsIcon
+                      icon={Icon}
+                      width={20}
+                      height={20}
+                      color={getColorFeedback()}
+                    />
+                  )}
+                  <TextInput
+                    style={[
+                      styles.input,
+                      Icon && { paddingLeft: 6 },
+                      isError && styles.inputError,
+                      isSuccess && styles.inputSuccess
+                    ]}
+                    placeholder={placeholder}
+                    placeholderTextColor={colors.gray[300]}
+                    secureTextEntry={showText}
+                    onBlur={onBlur}
+                    onChangeText={onChange}
+                    onFocus={handleFocus}
+                    onEndEditing={handleFocus}
+                    value={value}
+                    ref={ref}
+                    {...props}
+                  />
+                </View>
+              </View>
+              {secureTextEntry && (
+                <TouchableOpacity
+                  style={{ marginTop: 16 }}
+                  onPress={() => setShowText(text => !text)}
+                >
+                  <HugeiconsIcon
+                    icon={showText ? ViewOffSlashIcon : ViewIcon}
+                    width={20}
+                    height={20}
+                    color={getColorFeedback()}
+                  />
+                </TouchableOpacity>
               )}
-              <TextInput
-                style={[
-                  styles.input,
-                  Icon && { paddingLeft: 6 },
-                  error && styles.inputError,
-                ]}
-                placeholder={placeholder}
-                secureTextEntry={showText}
-                onBlur={onBlur}
-                onChangeText={onChange}
-                onFocus={handleFocus}
-                onEndEditing={handleFocus}
-                value={value}
-                ref={ref}
-                {...props}
-              />
-              {error && <Text style={styles.error}>{error.message}</Text>}
             </View>
+            {error && (
+              <View style={styles.errorContainer}>
+                <HugeiconsIcon
+                  icon={AlertCircleIcon}
+                  width={16}
+                  height={16}
+                  color={colors.semantic.danger}
+                />
+                <Text style={styles.errorText}>{error.message}</Text>
+              </View>
+            )}
           </View>
-          {secureTextEntry && (
-            <TouchableOpacity style={{ marginTop: 16 }} onPress={() => setShowText(text => !text)}>
-              <HugeiconsIcon
-                icon={showText ? ViewOffSlashIcon : ViewIcon}
-                width={20}
-                height={20}
-                color={isFocused ? colors.orange[400] : colors.gray[400]}
-              />
-            </TouchableOpacity>
-          )}
-        </View>
-      )}
+        );
+      }}
     />
   );
 }

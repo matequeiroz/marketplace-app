@@ -1,26 +1,15 @@
 import { useEffect } from 'react';
-import { SafeAreaView, StyleSheet } from 'react-native';
 import Bootsplash from 'react-native-bootsplash';
 
 import { Routes } from '@/routes';
 
 function App() {
-
   useEffect(() => {
-    Bootsplash.hide({ fade: true })
-  }, [])
+    Bootsplash.hide({ fade: true });
+  }, []);
 
-  return (
-    <SafeAreaView style={styles.container}>
-      <Routes />
-    </SafeAreaView>
-  );
+  return <Routes />;
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
 
 export default App;

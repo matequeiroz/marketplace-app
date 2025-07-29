@@ -41,10 +41,11 @@ export const post = async <T>(
     const response = await api.post<T>(url, data, config);
     return { data: response.data, status: response.status };
   } catch (error: any) {
-    return {
+    console.log(`http post error: ${url}`, {
       error: error.response?.data || error.message,
       status: error.response?.status,
-    };
+    })
+    throw new Error(error)
   }
 };
 

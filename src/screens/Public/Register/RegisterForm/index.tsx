@@ -8,7 +8,7 @@ import {
   LockKeyIcon,
   ArrowRight02Icon,
 } from '@hugeicons/core-free-icons';
-import { View } from 'react-native';
+import { Alert, View } from 'react-native';
 
 import { Button } from '@/components/shared/Button';
 import { FormInput } from '@/components/shared/InputForm';
@@ -16,23 +16,34 @@ import { RegisterFormType } from '@/types/registerForm';
 import { registerSchema } from '@/schemas/register.schema';
 
 import { styles } from './styles';
-
+import { useAuthContext } from '@@/src/hooks/useAuthContext';
+import { RegisterType } from '@/types/register';
 
 export const RegisterForm = () => {
+  const { handleUserRegister } = useAuthContext();
+
   const { control, handleSubmit } = useForm<RegisterFormType>({
     resolver: zodResolver(registerSchema),
-    mode: "onTouched"
+    mode: 'onTouched',
   });
 
-  const onSubmit = (data: RegisterFormType) => {
-    console.log(data);
+  const onSubmit = async ({ email, password, phone, username }: RegisterType) => {
+    try {
+      await handleUserRegister({ email, password, phone, username });
+    } catch (error) {
+      console.log('RegisterForm > onSumit error:', error);
+      Alert.alert(
+        'Erro',
+        'Não foi possível fazer seu cadastro, tente novamente.',
+      );
+    }
   };
 
   return (
     <View style={styles.container}>
       <View style={styles.inputContainer}>
         <FormInput
-          name="name"
+          name="username"
           label="Nome"
           control={control}
           icon={UserIcon}
@@ -79,7 +90,12 @@ export const RegisterForm = () => {
           autoCapitalize="none"
         />
       </View>
-      <Button text="Cadastrar" icon={ArrowRight02Icon} type="primary" onPress={handleSubmit(onSubmit)} />
+      <Button
+        text="Cadastrar"
+        icon={ArrowRight02Icon}
+        type="primary"
+        onPress={handleSubmit(onSubmit)}
+      />
     </View>
   );
 };

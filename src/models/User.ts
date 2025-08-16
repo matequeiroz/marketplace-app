@@ -1,9 +1,10 @@
 export type User = {
-  id: number
+  id: number;
+  email: string;
   documentId: string;
   username: string;
-  email: string;
   blocked: boolean;
   createdAt: string;
   updatedAt: string;
+  phone: string;
 };

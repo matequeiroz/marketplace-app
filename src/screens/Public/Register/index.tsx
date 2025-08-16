@@ -3,7 +3,6 @@ import { View } from 'react-native';
 
 // components
 import { HeaderPublic } from '@/components/features/HeaderPublic';
-import { WrapperPublic } from '@/components/shared/WrapperPublic';
 import { FooterPublic } from '@/components/features/FooterPublic';
 import { KeyboardDismissScrollView } from '@/components/shared/KeyboardDismissScrollView';
 
